@@ -5,13 +5,16 @@ set nocompatible
 syntax on		" syntax for programming on
 set number 		" set up line numbers
 set showcmd 		" show comands in-action in the coman line
-set lines=100 columns=100 " window 100x100
+set lines=999 columns=999 " window to max size
 set laststatus=2	" always see last command
 set ruler
 set autoread		" reread file
 
 set t_Co=256
 colorscheme monokai " colorshema like Sublime Text
+if has('win32') 
+	set guifont=Consolas:h11:cANSI:cRUSSIAN::
+endif
 " file type detection
 filetype plugin indent on
 " Make backspace usefull
@@ -24,19 +27,16 @@ if has('gui')
 endif
 " Add mouse
 if has('mouse')
-  set mouse=a
+    set mouse=a
 endif
-if has('win32')
-   set guifont=Lucida_Console:h10:cRUSSIAN::
-endif
+set tabstop=4 shiftwidth=4 expandtab " Set up tabs
 " }}}
 
 " install plug-ins {{{
 " I use vim-plug --> https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'bling/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
+	Plug 'bling/vim-airline'	
 call plug#end()
 
 " hot kays set-up {{{
@@ -44,10 +44,14 @@ call plug#end()
 nmap <C-s> :w<cr> 
 vmap <C-s> <esc>:w<cr>i
 imap <C-s> <esc>:w<cr>i
-
+" Find
+nmap <C-f> /
+vmap <C-f> <esc>/
+imap <C-f> <esc>/
 " }}}
 
 " Plug-in setup {{{
-" vim-anderline-themes setup
-let g:airline_theme ='bubblegum'
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 " }}}

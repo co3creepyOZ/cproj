@@ -1,0 +1,101 @@
+set nocompatible 
+syntax on
+set number
+set showcmd
+set backspace=2
+
+colorscheme monokai
+set wrap
+set linebreak 
+set mouse=a 
+set autoread 
+set mps+=<:>
+set confirm 
+set laststatus=2 
+set t_Co=256 
+set guifont=Consolas:h11:cANSI
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+
+set ignorecase 
+set smartcase 
+set hlsearch 
+set incsearch 
+filetype on
+filetype plugin on
+filetype indent on
+
+set shiftwidth=4 
+set tabstop=4 
+set softtabstop=4 
+set autoindent 
+set smartindent 
+
+set foldmethod=marker
+set foldmarker={,}
+
+call plug#begin('~/.vim/plugged')
+	
+	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+	Plug 'bling/vim-airline'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'majutsushi/tagbar'
+	Plug 'tpope/vim-surround'
+	
+	" Salesforce
+	Plug 'neowit/vim-force.com'
+
+call plug#end()
+
+if has('win32')
+	let g:tagbar_ctags_bin = 'C:\ctags58\ctags.exe'
+endif
+
+map <F11> :TagbarToggle<CR>
+map <F12> :NERDTreeToggle<cr>
+nmap <F2> :w<cr>
+vmap <F2> <esc>:w<cr>i
+imap <F2> <esc>:w<cr>i
+inoremap <C-Space> <C-x><C-o>
+
+set omnifunc=syntaxcomplete#Complete
+set completeopt=menu,preview,longest
+
+if has('win32') 
+	let g:apex_workspace_path = "D:\\vim-force\\workspace"
+	let g:apex_backup_folder = "D:\\vim-force\\backup"
+	let g:apex_temp_folder = "D:\\vim-force\\temp"
+	let g:apex_properties_folder = "D:\\vim-force\\properties"
+	let g:apex_tooling_force_dot_com_path = "D:\\vim-force\\tools\\tooling-force.jar"
+else
+	let g:apex_workspace_path = "/home/creepyoz/vim-force/workspace"
+	let g:apex_backup_folder = "/home/creepyoz/vim-force/backup"
+	let g:apex_temp_folder = "/home/creepyoz/vim-force/temp"
+	let g:apex_properties_folder = "/home/creepyoz/vim-force/properties"
+	let g:apex_tooling_force_dot_com_path = "/home/creepyoz/vim-force/tooling-force/tooling-force.com.jar"
+endif
+runtime ftdetect/vim-force.com.vim
+
+let g:apex_API_version = "36.0"
+
+	map <F5> :w<cr>:ApexSaveOne<cr>
+	vmap <F5> <esc>:w<cr>:ApexSaveOne<cr>i
+	imap <F5> <esc>:w<cr>:ApexSaveOne<cr>i
+	
+	map <F6> :ApexRefreshFile<cr>
+	vmap <F6> <cr>:ApexRefreshFile<cr>i
+	imap <F6> <cr>:ApexRefreshFile<cr>i
+
+if has("gui_running")
+  set lines=999 columns=999
+else
+  if exists("+lines")
+    set lines=50
+  endif
+  if exists("+columns")
+    set columns=100
+  endif
+endif
+
+let NERDTreeIgnore = ['\-meta.xml$']
+
+let g:vim_json_syntax_conceal = 0
