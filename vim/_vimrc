@@ -1,5 +1,5 @@
 " basic set up {{{
-autocmd! bufwritepost $MYVIMRC source $MYVIMRC " auto reread .vimrc file after save {{{
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC " auto reread .vimrc file after save
 
 set nocompatible
 syntax on		" syntax for programming on
