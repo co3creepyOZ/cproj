@@ -9,6 +9,7 @@ set lines=999 columns=999 " window to max size
 set laststatus=2	" always see last command
 set ruler
 set autoread		" reread file
+set mps+=<:>        " Add < and > to match map
 
 set t_Co=256
 colorscheme monokai " colorshema like Sublime Text
@@ -35,23 +36,38 @@ set tabstop=4 shiftwidth=4 expandtab " Set up tabs
 " install plug-ins {{{
 " I use vim-plug --> https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'majutsushi/tagbar'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'bling/vim-airline'	
 call plug#end()
 
 " hot kays set-up {{{
-" <C-s> for save file 
-nmap <C-s> :w<cr> 
-vmap <C-s> <esc>:w<cr>i
-imap <C-s> <esc>:w<cr>i
+" <F2> for save file 
+nmap <F2> :w<cr> 
+vmap <F2> <esc>:w<cr>a
+imap <F2> <esc>:w<cr>a
 " Find
 nmap <C-f> /
 vmap <C-f> <esc>/
 imap <C-f> <esc>/
+" Open Nerd tree by <F12>
+map <F12> :NERDTreeToggle<cr>
+" TagBar use on <F11>
+map <F11> :TagbarToggle<cr>
+" Use autocomplete by <C-Space>
+inoremap <C-Space> <C-x><C-o>
 " }}}
 
 " Plug-in setup {{{
+" autocomplete
+setlocal omnifunc=syntaxcomplete#Complete
+set completeopt=menu,preview,longest
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+" TagBar
+if has('win32')
+	let g:tagbar_ctags_bin = 'C:\ctags58\ctags.exe'
+endif
 " }}}
