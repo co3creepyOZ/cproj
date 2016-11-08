@@ -1,5 +1,5 @@
 " basic set up {{{
-autocmd! bufwritepost $MYVIMRC source $MYVIMRC " auto reread .vimrc file after save
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC " auto reread .vimrc file after save {{{
 
 set nocompatible
 syntax on		" syntax for programming on
@@ -58,7 +58,18 @@ map <F11> :TagbarToggle<cr>
 " Use autocomplete by <C-Space>
 inoremap <C-Space> <C-x><C-o>
 " }}}
-
+" Set up brackets autoclose {{{
+" set () 
+inoremap        (  ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" ste {}
+inoremap        {  {}<Left>
+inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+" ste ''
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+" set ""
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+" }}}
 " Plug-in setup {{{
 " autocomplete
 setlocal omnifunc=syntaxcomplete#Complete
